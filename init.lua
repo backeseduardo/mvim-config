@@ -59,13 +59,13 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 vim.keymap.set("n", "<leader>t", ":tabnew | term<CR>i", { noremap = true, silent = true })
 
 -- Explore
-vim.g.netrw_liststyle = 3
-vim.keymap.set("n", "<leader>e", ":Explore<CR>", { noremap = true })
+--vim.g.netrw_liststyle = 3
+--vim.keymap.set("n", "<leader>e", ":Explore<CR>", { noremap = true })
 
 vim.diagnostic.config({
   virtual_text = true,
 })
---vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic Quickfix list" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic Quickfix list" })
 
 -- hightlight yank
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -402,6 +402,20 @@ require("lazy").setup({
           markdown = { "prettierd", "prettier", stop_after_first = true },
         },
       },
+    },
+    {
+      'stevearc/oil.nvim',
+      dependencies = { { "echasnovski/mini.icons", opts = {} } },
+      -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+      lazy = false,
+      config = function()
+        require("oil").setup({
+          view_options = {
+            show_hidden = true,
+          },
+        })
+        vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+      end
     },
   },
   -- Configure any other settings here. See the documentation for more details.
